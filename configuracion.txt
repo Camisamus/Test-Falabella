@@ -1,0 +1,9 @@
+:18080
+
+root:
+
+@tcp(
+localhost
+:3306
+)/
+test
