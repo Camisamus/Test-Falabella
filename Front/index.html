@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Falabella</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="recursos/css.css" />
+    <script src="recursos/jquery-3.4.1min.js"></script>
+    <script src="recursos/js.js"></script>
+  </head>
+  <body>
+  <div>
+    <div class="titulodiv">Create</div>
+        <div class="cuerpodiv">
+            <div class="form">
+            <div class="inputer">
+            SKU
+            <input type="text" id="IPSKUCreate">
+            </div>
+            <div class="inputer">
+            Name
+            <input type="text" id="IPNameCreate">
+            </div>
+            <div class="inputer">
+            Brand
+            <input type="text" id="IPBrandCreate">
+            </div>
+            <div class="inputer">
+            Size
+            <input type="text" id="IPSizeCreate">
+            </div>
+            <div class="inputer">
+            Price
+            <input type="text" id="IPPriceCreate">
+            </div>
+            <div class="inputer">
+            URL imagen 0
+            <input type="text" id="IPImageCreate_0">
+            </div>
+            <div class="inputer">
+            +1 Image
+            <input type="button" id="Agregar imagen" Value="Agregar imagen" onclick="plusimageCrear()"></button>
+            </div>
+            <div class="inputer" id="ImagenesCrearn">
+            Image n
+            </div>
+            <div class="inputer">
+            Send
+            <input type="button" id="SendCreate" value="Crear Producto" onclick="crearProducto()">
+            </div>
+            </div>
+        </div>
+  </div>
+  <div>
+    <div class="titulodiv">Read</div>
+        <div class="cuerpodiv" id="mass">
+            <div class="form">
+            <div class="inputer">
+            </div>
+            </div>
+        </div>
+  </div>
+  <div>
+    <div class="titulodiv">Ask</div>
+        <div class="cuerpodiv">
+            <div class="form">
+            <div class="inputer">
+            SKU
+            <input type="text" id="IPSKUASK">
+            </div>
+            <div class="inputer">
+            Retrive
+            <input type="button" id="SendASK" value="Consultar" onclick="TraeProducto()">
+            </div>
+            <div class="inputer">
+            Name
+            <input type="text" id="IPNameASK" disabled>
+            </div>
+            <div class="inputer">
+            Brand
+            <input type="text" id="IPBrandASK" disabled>
+            </div>
+            <div class="inputer">
+            Size
+            <input type="text" id="IPSizeASK" disabled>
+            </div>
+            <div class="inputer">
+            Price
+            <input type="text" id="IPPriceASK" disabled>
+            </div>
+            <div class="inputer" id="imagenesASK">
+            URL imagenes
+            </div>
+            </div>
+        </div>
+  </div>
+  <div>
+    <div class="titulodiv">Update</div>
+        <div class="cuerpodiv">
+            <div class="form">
+            <div class="inputer">
+            SKU
+            <input type="text" id="IPSKUUpdate">
+            </div>
+            <div class="inputer">
+            <div class="inputer">
+            Name
+            <input type="text" id="IPNameUpdate" >
+            </div>
+            <div class="inputer">
+            Brand
+            <input type="text" id="IPBrandUpdate" >
+            </div>
+            <div class="inputer">
+            Size
+            <input type="text" id="IPSizeUpdate" >
+            </div>
+            <div class="inputer">
+            Price
+            <input type="text" id="IPPriceUpdate" >
+            </div>
+            <div class="inputer">
+            +1 Image
+            <input type="button" id="AgregarImagenUpdate" Value="Agregar imagen" onclick="plusimageCrearup()"></button>
+            </div>
+            <div class="inputer" id="imagenesUpdate">
+            URL imagenes
+            </div>
+            Update
+            <input type="button" id="SendUpdate" value="Modificar" onclick="MODProducto()">
+            </div>
+            </div>
+        </div>
+  </div>
+  <div>
+    <div class="titulodiv">Delete</div>
+        <div class="cuerpodiv">
+            <div class="form">
+            <div class="inputer">
+            SKU
+            <input type="text" id="IPSKUDelete">
+            </div>
+            <div class="inputer">
+            Delete
+            <input type="button" id="SendDelete" value="Eliminar" onclick="DelProducto()">
+            </div>
+            </div>
+        </div>
+  </div>
+  </body>
+</html>
+

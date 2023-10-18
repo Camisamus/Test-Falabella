@@ -46,6 +46,7 @@ func init() {
 }
 func main() {
 	enturador := mux.NewRouter().StrictSlash(false)
+	enableCORS(enturador)
 	enturador.HandleFunc("/Create", crearHandler).Methods("PUT")
 	enturador.HandleFunc("/Read", leerHandler).Methods("GET")
 	enturador.HandleFunc("/Ask", preguntarHandler).Methods("POST")
@@ -63,6 +64,25 @@ func main() {
 
 	servidor.ListenAndServe()
 
+}
+func enableCORS(router *mux.Router) {
+	router.PathPrefix("/").HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	}).Methods(http.MethodOptions)
+	router.Use(middlewareCors)
+}
+
+func middlewareCors(next http.Handler) http.Handler {
+	return http.HandlerFunc(
+		func(w http.ResponseWriter, req *http.Request) {
+			w.Header().Set("Access-Control-Allow-Origin", "*")
+			w.Header().Set("Access-Control-Allow-Credentials", "true")
+			w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+			w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+			// and call next handler!
+			next.ServeHTTP(w, req)
+		})
 }
 func actualizarConfiguracion() {
 	contenido, err := ioutil.ReadFile("configuracion.txt")
@@ -131,6 +151,7 @@ func crearHandler(w http.ResponseWriter, r *http.Request) {
 }
 func leerHandler(w http.ResponseWriter, r *http.Request) {
 
+	w.Header().Set("contenido-Type", "application/json")
 	output, err := funcionConsultaMasiva()
 	if err != nil {
 		log.Println("Errores : " + err.Error())
@@ -266,6 +287,9 @@ func borrarHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(respuesta)
 }
 func validarSKU(SKU string) bool {
+	if len(SKU) < 6 {
+		return false
+	}
 	aux1 := SKU[0:4]
 	aux2 := SKU[4:]
 	if aux1 != "FAL-" {
@@ -435,16 +459,17 @@ func funcionModificar(prod Producto) (Producto, error) {
 	if err != nil {
 		return outprod, err
 	}
-	err = eliminarImagenes(prod.ID)
+	aux, err := consultaProducto("A", prod.SKU)
+	if err != nil {
+		return outprod, err
+	}
+	err = eliminarImagenes(aux.ID)
 	if err != nil {
 		return outprod, err
 	}
 	for _, j2 := range prod.Imagenes {
-		aux, err := consultaProducto("A", prod.SKU)
-		if err != nil {
-			return outprod, err
-		}
 		j2.Producto = aux.ID
+		j2.Estado = "A"
 		err = ingresoImagenes(j2)
 		if err != nil {
 			return outprod, err
